@@ -1,4 +1,5 @@
 // g2o - General Graph Optimization
+
 // Copyright (C) 2011 R. Kuemmerle, G. Grisetti, W. Burgard
 // All rights reserved.
 //
@@ -32,43 +33,53 @@
 #include <string>
 
 namespace g2o {
-    
-    class Parameter;
+class Parameter;
 
-    /**
-     * \brief map id to parameters
-     */
-    class ParameterContainer : protected std::map<int, Parameter*> 
-    {
-    public:
-      typedef std::map<int, Parameter*> BaseClass;
+/**
+ * \brief map id to parameters
+ */
+class ParameterContainer : protected std::map<int, Parameter *>{
+public:
 
-      /**
-       * create a container for the parameters.
-       * @param isMainStorage_ pointers to the parameters are owned by this container, i.e., freed in its constructor
-       */
-      ParameterContainer(bool isMainStorage_=true);
-      virtual ~ParameterContainer();
-      //! add parameter to the container
-      bool addParameter(Parameter* p);
-      //! return a parameter based on its ID
-      Parameter* getParameter(int id);
-      //! remove a parameter from the container, i.e., the user now owns the pointer
-      Parameter* detachParameter(int id);
-      //! read parameters from a stream
-      virtual bool read(std::istream& is, const std::map<std::string, std::string>* renamedMap =0);
-      //! write the data to a stream
-      virtual bool write(std::ostream& os) const;
-      bool isMainStorage() const {return _isMainStorage;}
-      void clear();
+  typedef std::map<int, Parameter *> BaseClass;
 
-      // stuff of the base class that should re-appear
-      using BaseClass::size;
+  /**
+   * create a container for the parameters.
+   * @param isMainStorage_ pointers to the parameters are owned by this
+   *container, i.e., freed in its constructor
+   */
+  ParameterContainer(bool isMainStorage_ = true);
+  virtual ~ParameterContainer();
 
-    protected:
-      bool _isMainStorage;
-    };
+  // ! add parameter to the container
+  bool         addParameter(Parameter *p);
 
+  // ! return a parameter based on its ID
+  Parameter  * getParameter(int id);
+
+  // ! remove a parameter from the container, i.e., the user now owns the
+  // pointer
+  Parameter  * detachParameter(int id);
+
+  // ! read parameters from a stream
+  virtual bool read(std::istream& is,
+                    const std::map<std::string, std::string> *renamedMap = 0);
+
+  // ! write the data to a stream
+  virtual bool write(std::ostream& os) const;
+  bool         isMainStorage() const {
+    return _isMainStorage;
+  }
+
+  void clear();
+
+  // stuff of the base class that should re-appear
+  using BaseClass::size;
+
+protected:
+
+  bool _isMainStorage;
+};
 } // end namespace
 
-#endif
+#endif // ifndef G2O_GRAPH_PARAMETER_CONTAINER_HH_

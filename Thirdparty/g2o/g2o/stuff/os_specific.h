@@ -1,4 +1,5 @@
 // g2o - General Graph Optimization
+
 // Copyright (C) 2011 R. Kuemmerle, G. Grisetti, W. Burgard
 // All rights reserved.
 //
@@ -25,32 +26,35 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef G2O_OS_SPECIFIC_HH_
-#define G2O_OS_SPECIFIC_HH_
+# define G2O_OS_SPECIFIC_HH_
 
-#ifdef WINDOWS
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#ifndef _WINDOWS
-#include <sys/time.h>
-#endif
-#define drand48() ((double) rand()/(double)RAND_MAX)
+# ifdef WINDOWS
+#  include <stdio.h>
+#  include <stdlib.h>
+#  include <stdarg.h>
+#  ifndef _WINDOWS
+#   include <sys/time.h>
+#  endif // ifndef _WINDOWS
+#  define drand48() ((double)rand() / (double)RAND_MAX)
 
-#ifdef __cplusplus
+#  ifdef __cplusplus
 extern "C" {
-#endif
+#  endif // ifdef __cplusplus
 
-int vasprintf(char** strp, const char* fmt, va_list ap);
+int vasprintf(char      **strp,
+              const char *fmt,
+              va_list     ap);
 
-#ifdef __cplusplus
+#  ifdef __cplusplus
 }
-#endif
+#  endif // ifdef __cplusplus
 
-#endif
+# endif // ifdef WINDOWS
 
-#ifdef UNIX
-#include <sys/time.h>
+# ifdef UNIX
+#  include <sys/time.h>
+
 // nothing to do on real operating systems
-#endif
+# endif // ifdef UNIX
 
-#endif
+#endif // ifndef G2O_OS_SPECIFIC_HH_

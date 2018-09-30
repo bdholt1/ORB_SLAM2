@@ -1,4 +1,5 @@
 // g2o - General Graph Optimization
+
 // Copyright (C) 2011 Kurt Konolige
 // All rights reserved.
 //
@@ -33,29 +34,27 @@
 #include <iostream>
 
 namespace g2o {
-
 /**
  * \brief Point vertex, XYZ
  */
- class VertexSBAPointXYZ : public BaseVertex<3, Vector3d>
-{
-  public:
-    EIGEN_MAKE_ALIGNED_OPERATOR_NEW    
-    VertexSBAPointXYZ();
-    virtual bool read(std::istream& is);
-    virtual bool write(std::ostream& os) const;
+class VertexSBAPointXYZ : public BaseVertex<3, Vector3d>{
+public:
 
-    virtual void setToOriginImpl() {
-      _estimate.fill(0.);
-    }
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+  VertexSBAPointXYZ();
+  virtual bool read(std::istream& is);
+  virtual bool write(std::ostream& os) const;
 
-    virtual void oplusImpl(const double* update)
-    {
-      Eigen::Map<const Vector3d> v(update);
-      _estimate += v;
-    }
+  virtual void setToOriginImpl() {
+    _estimate.fill(0.);
+  }
+
+  virtual void oplusImpl(const double *update)
+  {
+    Eigen::Map<const Vector3d> v(update);
+    _estimate += v;
+  }
 };
-
 } // end namespace
 
 #endif // SBA_TYPES
